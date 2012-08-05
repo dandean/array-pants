@@ -1,18 +1,18 @@
 {
-  "name" : "array-additions",
-  "description" : "Methods which extend the Array object.",
+  "name" : "array-pants",
+  "description" : "Some pants for your arrays.",
   "version" : "0.1.0", 
-  "homepage" : "http://github.com/dandean/array-additions",
+  "homepage" : "http://github.com/dandean/array-pants",
   "author" : "Dan Dean <me@dandean.com> (http://dandean.com)",
   "contributors" : [],
   "repository" :
   {
     "type" : "git",
-    "url" : "http://github.com/dandean/array-additions.git"
+    "url" : "http://github.com/dandean/array-pants.git"
   },
   "bugs" : {
     "mail" : "me@dandean.com",
-    "url" : "http://github.com/dandean/array-additions/issues"
+    "url" : "http://github.com/dandean/array-pants/issues"
   },
   "main" : "index",
   "scripts": {
@@ -24,6 +24,6 @@
   "engines" : { "node" : ">=0.2.0" },
   "licenses" : [{
     "type" : "MIT",
-    "url" : "http://github.com/dandean/array-additions/raw/master/LICENSE"
+    "url" : "http://github.com/dandean/array-pants/raw/master/LICENSE"
   }]
 }
