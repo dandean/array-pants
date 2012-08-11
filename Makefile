@@ -1,8 +1,14 @@
 REPORTER = dot
 
 test:
-	./node_modules/.bin/mocha \
-	  && open ./test/html/requirejs.html \
-	  && open ./test/html/script.html
+	make test_node && make test_browser
+
+test_node:
+	./node_modules/.bin/mocha
+
+test_browser:
+	open ./test/html/requirejs.html \
+	  && open ./test/html/script.html	
+
 
 .PHONY: test
