@@ -3,33 +3,37 @@
 
   var slice = Array.prototype.slice;
 
+  /**
+   * Array#invoke(method, arg, arg, arg...) -> Array
+  **/
+  function invoke(method) {
+    var args = slice.call(arguments, 1);
+    for (var i = 0; i < this.length; i++) {
+      this[i][method].apply(this[i], args);
+    };
+    return this;
+  }
+
+  /**
+   * Array#pluck(method) -> Array
+  **/
+  function pluck(property) {
+    var result = [];
+    for (var i = 0; i < this.length; i++) {
+      result.push(this[i][property]);
+    };
+    return result;
+  }
+
+  // Copy functions to an object so they can be iterated.
   var Extensions = {
-
-    /**
-     * Array#invoke(method, arg, arg, arg...) -> Array
-    **/
-    invoke: function(method) {
-      var args = slice.call(arguments, 1);
-      for (var i = 0; i < this.length; i++) {
-        this[i][method].apply(this[i], args);
-      };
-      return this;
-    },
-
-    /**
-     * Array#pluck(method) -> Array
-    **/
-    pluck: function(property) {
-      var result = [];
-      for (var i = 0; i < this.length; i++) {
-        result.push(this[i][property]);
-      };
-      return result;
-    }
+    invoke: invoke,
+    pluck: pluck
   };
 
+  // When used as a module, all methods (except install) take an Array as their
+  // first argument, and all methods are `call`'d on them.
   var Module = {
-
     /**
      * install([debug]) -> undefined
      * - debug (Boolean): If debug messages should printed when a function is installed on `Object`.
@@ -49,7 +53,7 @@
     }
   };
 
-  // Copy methods over to the Module object.
+  // Copy methods over to the Module object so they can be exported.
   Object.keys(Extensions).forEach(function(method) {
     Module[method] = function(array, arg) {
       Extensions[method].call(array, arg);
