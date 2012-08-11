@@ -4,8 +4,6 @@ if (typeof window === 'undefined') {
 }
 
 describe('Array Pants', function() {
-  if (typeof pants != 'undefined') pants.install();
-
   function Thing(value) {
     this.value = value;
   }
@@ -18,9 +16,37 @@ describe('Array Pants', function() {
     this.value = this.value.toUpperCase();
   }
 
-  var things = [new Thing('abc'), new Thing('abc'), new Thing('abc')];
+  var things;
+
+  beforeEach(function() {
+    // Re-create `things` for each test.
+    things = [new Thing('abc'), new Thing('abc'), new Thing('abc')];
+  });
+
+  if (typeof pants != 'undefined') {
+    describe('when used as a Module', function() {
+
+      it('should invoke the method on every instance in the array', function() {
+        pants.invoke(things, 'toUpperCase');
+        things.forEach(function(thing) {
+          assert.ok(thing.toString() == 'ABC');
+        });
+      });
+
+      it('should collect the property from every instance in the array', function() {
+        var values = pants.pluck(things, 'value');
+        values.forEach(function(value) {
+          assert.ok(value == 'abc');
+        });
+        assert.ok(values.length == things.length);
+      });
+
+    });
+  }
 
   it('should invoke the method on every instance in the array', function() {
+    if (pants && pants.install) pants.install();
+
     things.invoke('toUpperCase');
     things.forEach(function(thing) {
       assert.ok(thing.toString() == 'ABC');
@@ -28,10 +54,11 @@ describe('Array Pants', function() {
   });
 
   it('should collect the property from every instance in the array', function() {
-    var values = things.pluck('value');
+    if (pants && pants.install) pants.install();
 
+    var values = things.pluck('value');
     values.forEach(function(value) {
-      assert.ok(value == 'ABC');
+      assert.ok(value == 'abc');
     });
     assert.ok(values.length == things.length);
   });
