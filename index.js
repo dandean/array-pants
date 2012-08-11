@@ -56,7 +56,7 @@
   // Copy methods over to the Module object so they can be exported.
   Object.keys(Extensions).forEach(function(method) {
     Module[method] = function(array, arg) {
-      Extensions[method].call(array, arg);
+      return Extensions[method].call(array, arg);
     }
   });
 
